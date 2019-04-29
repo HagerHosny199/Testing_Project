@@ -1,0 +1,19 @@
+"""
+        Here we test youtube_dl/extractor/common/playlist_result function
+"""
+
+"""
+        Here we test youtube_dl/extractor/common/guess_encoding_from_content function
+"""
+
+"""
+        Here we test youtube_dl/extractor/beampro/_extract_format function
+"""
+
+"""
+        Here we test youtube_dl/downloader/common/calc_eta function
+"""
+
+"""
+        Here we test youtube_dl/downloader/common/best_block_size function
+"""
