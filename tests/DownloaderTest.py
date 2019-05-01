@@ -118,8 +118,6 @@ class DownloaderTest(unittest.TestCase):
         output = '%10s' % ('%s/s' % common.format_bytes(speed))
         self.assertEqual(results, output)
 
-
-
     def test_calc_eta (self):
         #Condition Decision Coverage criteria
         ydl=YoutubeDL.YoutubeDL()
@@ -186,6 +184,22 @@ class DownloaderTest(unittest.TestCase):
         eta = 50
         result = downloader.format_eta(eta)
         self.assertEqual(result, '00:50')
+        
+    def test_format_retries(self):
+        """Testing format_retries function"""
+        """Applying branch coverage"""
+        ydl=YoutubeDL.YoutubeDL()
+        downloader=common.FileDownloader(ydl,None)
+        
+        """First branch retries = inf"""
+        retries = float('inf')
+        result = downloader.format_retries(retries)
+        self.assertEqual(result, 'inf')
+        
+        """Second branch: retries < inf"""
+        retries = 200.2
+        result = downloader.format_retries(retries)
+        self.assertEqual(result, '%.0f' % 200)
 
 if __name__ == '__main__':
     unittest.main()
