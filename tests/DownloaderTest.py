@@ -114,6 +114,57 @@ class DownloaderTest(unittest.TestCase):
 
 
 
+    def test_calc_eta (self):
+        #Condition Decision Coverage criteria
+        ydl=YoutubeDL.YoutubeDL()
+        downloader=common.FileDownloader(ydl,None)
+        now = time.time()
+        start = now - 100
+        total = 1000
+        current = 10
+
+        eta = downloader.calc_eta(start,now,total,current)
+        self.assertEqual(eta , 9900)
+
+        eta = downloader.calc_eta(start,now,None,current)
+        self.assertEqual(eta , None)
+        
+        eta = downloader.calc_eta(start,None,total,current)
+        self.assertEqual(eta , 9900)        
+
+        eta = downloader.calc_eta(start,now,total,0)
+        self.assertEqual(eta , None) 
+        
+        start = now
+        eta = downloader.calc_eta(start,now,total,current)
+        self.assertEqual(eta , None)
+
+
+    def test_best_block_size (self):
+        #Decision Coverage criteria
+
+        ydl=YoutubeDL.YoutubeDL()
+        downloader=common.FileDownloader(ydl,None)
+        elapsed_time = 1
+        bytes_ = 20
+        size  = downloader.best_block_size(elapsed_time, bytes_)
+        self.assertEqual(size , 20)
+
+        elapsed_time = 0.0001
+        bytes_ = 20
+        size  = downloader.best_block_size(elapsed_time, bytes_)
+        self.assertEqual(size , 40) 
+
+        elapsed_time = 0.1
+        bytes_ = 20
+        size  = downloader.best_block_size(elapsed_time, bytes_)
+        self.assertEqual(size , 40)  
+        
+        elapsed_time = 4
+        bytes_ = 20
+        size  = downloader.best_block_size(elapsed_time, bytes_)
+        self.assertEqual(size , 10)
+
 
 if __name__ == '__main__':
     unittest.main()
