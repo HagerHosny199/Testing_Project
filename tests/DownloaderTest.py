@@ -1,4 +1,9 @@
+from __future__ import unicode_literals
 import unittest
+import os
+import sys
+import time
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from downloader import common
 import YoutubeDL
 class DownloaderTest(unittest.TestCase):
@@ -109,7 +114,8 @@ class DownloaderTest(unittest.TestCase):
         self.assertEqual(results, '%10s' % '---b/s')
         speed = 20
         results = downloader.format_speed(speed)
-        output = '%10s' % ('%s/s' % format_bytes(speed))
+        
+        output = '%10s' % ('%s/s' % common.format_bytes(speed))
         self.assertEqual(results, output)
 
 
@@ -183,4 +189,3 @@ class DownloaderTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
