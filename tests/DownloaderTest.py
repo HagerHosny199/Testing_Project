@@ -200,6 +200,21 @@ class DownloaderTest(unittest.TestCase):
         retries = 200.2
         result = downloader.format_retries(retries)
         self.assertEqual(result, '%.0f' % 200)
+        
+    def test_temp_name(self):
+        """Testing temp_name function"""
+        """Applying predicate coverage"""
+        ydl=YoutubeDL.YoutubeDL()
+        params = {'nopart' : False}     
+        downloader = common.FileDownloader(ydl,params)
+        
+        filename = '-'
+        result = downloader.temp_name(filename)
+        self.assertEqual(result, '-')
+        
+        filename = 'name'
+        result = downloader.temp_name(filename)
+        self.assertEqual(result, 'name.part')
 
 if __name__ == '__main__':
     unittest.main()
