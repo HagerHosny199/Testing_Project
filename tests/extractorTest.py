@@ -37,6 +37,49 @@ class ExtractorTest(unittest.TestCase):
         url = 'https//example.com/'
         result = extractor._proto_relative_url(url, 'https')
         self.assertEqual(result, url)
+#dina
+
+
+    def test_play_list (self):
+        #Decision Coverage criteria
+        
+        ydl=YoutubeDL.YoutubeDL()
+        params = {'prefer_insecure' : False}
+        downloader = downCommon.FileDownloader(ydl,params)
+        extractor = extCommon.InfoExtractor(downloader = downloader)
+        
+        url = ['https://www.youtube.com/watch?v=H37yuTXXwo8', 'https://www.youtube.com/watch?v=nmZcGPIrojI', 'https://www.youtube.com/watch?v=T7kFMRhz0Tw']
+      
+        play_list = extractor.playlist_result(url , None , None , None)
+        video_info = {'_type': 'playlist',
+                      'entries': url,
+                      }        
+        self.assertEqual(play_list ,video_info )
+
+        
+        play_list = extractor.playlist_result(url , 1 , None , None)
+        video_info = {'_type': 'playlist',
+                      'entries': url,
+                      'id' : 1,
+                      }        
+        self.assertEqual(play_list ,video_info ) 
+
+        
+        play_list = extractor.playlist_result(url , None , 'd7e7' , None)
+        video_info = {'_type': 'playlist',
+                      'entries': url,
+                      'title' :'d7e7',
+                      }
+        
+        self.assertEqual(play_list ,video_info ) 
+
+
+        play_list = extractor.playlist_result(url , None , None , 'A channel that shows some of funny videos')
+        video_info = {'_type': 'playlist',
+                      'entries': url,
+                      'description' :'A channel that shows some of funny videos',
+                      }        
+        self.assertEqual(play_list ,video_info )     
 
 if __name__ == '__main__':
     unittest.main()
