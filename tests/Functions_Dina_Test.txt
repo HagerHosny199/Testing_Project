@@ -3,11 +3,11 @@
 """
 
 """
-        Here we test youtube_dl/extractor/common/guess_encoding_from_content function
+        Here we test youtube_dl/utils/age_restricted  function
 """
 
 """
-        Here we test youtube_dl/extractor/beampro/_extract_format function
+        Here we test youtube_dl/utils/format_bytes function
 """
 
 """
