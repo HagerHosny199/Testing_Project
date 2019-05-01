@@ -164,7 +164,22 @@ class DownloaderTest(unittest.TestCase):
         bytes_ = 20
         size  = downloader.best_block_size(elapsed_time, bytes_)
         self.assertEqual(size , 10)
-
+    
+    def test_format_eta(self):
+        """Testing format_eta function"""
+        """Applying branch coverage"""
+        ydl=YoutubeDL.YoutubeDL()
+        downloader=common.FileDownloader(ydl,None)
+        
+        """1st branch: eta = None"""
+        eta = None
+        result = downloader.format_eta(eta)
+        self.assertEqual(result, '--:--')
+        
+        """2st branch: eta != None"""
+        eta = 50
+        result = downloader.format_eta(eta)
+        self.assertEqual(result, '00:50')
 
 if __name__ == '__main__':
     unittest.main()
