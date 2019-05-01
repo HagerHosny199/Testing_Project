@@ -113,6 +113,44 @@ class TestYoutubeDL(unittest.TestCase):
         with self.assertRaises(Exception):
             results=ydl.process_ie_result(info_dict)
 
+    # Omar
+    def test_format_resolution(self):
+        """
+        Here we test format_resolution function
+        I will apply branch coverage
+        """
+        ydl = YoutubeDL.YoutubeDL()
+        # branch1 'vcodec' == 'none'
+        format = {"vcodec": "none"}
+        result = ydl.format_resolution(format)
+        self.assertEqual(result, 'audio only')
+        # branch2 'resolution' != None
+        format = {"resolution": 900}
+        result = ydl.format_resolution(format)
+        output = format['resolution']
+        self.assertEqual(result, output)
+        # branch3 'resolution' == None and height != None and width != None
+        format = {"resolution": None, "height": 100, "width": 200}
+        result = ydl.format_resolution(format)
+        output = '%sx%s' % (format['width'], format['height'])
+        self.assertEqual(result, output)
+        # branch4 'resolution' == None and height != None and width == None
+        format = {"resolution": None, "height": 100, "width": None}
+        result = ydl.format_resolution(format)
+        output = '%sp' % format['height']
+        self.assertEqual(result, output)
+        # branch5 'resolution' == None and height == None and width != None
+        format = {"resolution": None, "height": None, "width": 100}
+        result = ydl.format_resolution(format)
+        output = '%dx?' % format['width']
+        self.assertEqual(result, output)
+        # branch6 'resolution' == None and height == None and width == None
+        format = {"resolution": None, "height": None, "width": None}
+        result = ydl.format_resolution(format)
+        output = 'unknown'
+        self.assertEqual(result, output)
+
+
 
 
 if __name__ == '__main__':
