@@ -41,24 +41,25 @@ class Test_Methods(unittest.TestCase):
         bytes_ = ut.format_bytes(33)
         self.assertEqual(bytes_ , '33.00B')
         
-	def test_bytes_to_intlist(self):
-		"""Testing utils/bytes_to_intlist function
-		Applying branch coverage"""
 
-		"""First branch: bs = None"""
-		bs = None
-		result = ut.bytes_to_intlist(bs)
-		self.assertEqual(result, [])
-
-		"""Second branch: isinstance(bs[0], int) = True """        
-		bs = (7).to_bytes(1, 'little')
-		result = ut.bytes_to_intlist(bs)
-		self.assertEqual(result, [7])
-
-		"""Third branch: isinstance(bs[0], int) = False"""
-		bs = bytes("bytes", 'utf-8')
-		result = ut.bytes_to_intlist(bs)
-		self.assertEqual(result, [98, 121, 116, 101, 115])
-
+    def test_bytes_to_intlist(self):
+        """Testing utils/bytes_to_intlist function
+        Applying branch coverage"""
+        
+        """First branch: bs = None"""
+        bs = None
+        result = ut.bytes_to_intlist(bs)
+        self.assertEqual(result, [])
+        
+        """Second branch: isinstance(bs[0], int) = True """        
+        bs = (7).to_bytes(1, 'little')
+        result = ut.bytes_to_intlist(bs)
+        self.assertEqual(result, [7])
+        
+        """Third branch: isinstance(bs[0], int) = False"""
+        bs = bytes("bytes", 'utf-8')
+        result = ut.bytes_to_intlist(bs)
+        self.assertEqual(result, [98, 121, 116, 101, 115])
+        
 if __name__ == '__main__':
     unittest.main()
