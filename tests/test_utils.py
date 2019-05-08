@@ -41,6 +41,6 @@ class Test_Methods(unittest.TestCase):
         bytes_ = ut.format_bytes(33)
         self.assertEqual(bytes_ , '33.00B')
         
-        
+       
 if __name__ == '__main__':
     unittest.main()
