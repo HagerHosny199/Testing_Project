@@ -25,6 +25,18 @@ class DownloaderTestOracle(unittest.TestCase):
         # check if they are equal
         self.assertEqual(results,output)
 
+    def test_format_percent(self):
+        ydl=YoutubeDL.YoutubeDL()
+        downloader=common.FileDownloader(ydl,None)
+         # generate random number
+        percent=random.uniform(0,100)
+        results = downloader.format_percent(percent)
+        output = str(round(percent, 1)) + '%'
+        while(len(output) < 6):
+            output = " " + output
+         # check if they are equal
+        self.assertEqual(results,output)
+    
     def test_best_block_size(self):
         """ This function takes elapsed time and bytes and produces value between 1 & 4194304 """
         ydl=YoutubeDL.YoutubeDL()
@@ -48,4 +60,5 @@ class DownloaderTestOracle(unittest.TestCase):
         else:
             self.assertEqual(output,int(rate))
 
-
+if __name__ == '__main__':
+    unittest.main()
