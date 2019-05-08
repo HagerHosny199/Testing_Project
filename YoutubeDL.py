@@ -944,6 +944,7 @@ class YoutubeDL(object):
                 else:
                     entries = ie_entries[playliststart:playlistend]
                 n_entries = len(entries)
+                ie_result['num_entries']=n_entries
                 self.to_screen(
                     '[%s] playlist %s: Collected %d video ids (downloading %d of them)' %
                     (ie_result['extractor'], playlist, n_all_entries, n_entries))

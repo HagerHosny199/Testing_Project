@@ -39,18 +39,50 @@ class DownloaderTest(unittest.TestCase):
         self.assertEqual(results,output)
 
     def test_slow_down(self):
+
         """
         Here we test downloader/common/slow_down function
         We will apply clause coverage criteria
         """
         start_time=10
-        now=12
-        byte_counter=10
         ydl=YoutubeDL.YoutubeDL()
-        # evaluate clause (rate_limit is None) to True & clause (byte_counter==0) to False
-        ydl.params['ratelimit']=None
+        # evaluate clause (rate_limit != None) & clause (byte_counter==1) & clause (now =none) & (elapsed=-1)
+        ydl.params['ratelimit']=10
+        bytes=1
+        now=None
+        elapsed=-1
         downloader=common.FileDownloader(ydl,ydl.params)
+        results=downloader.slow_down(start_time,now,bytes)
+        self.assertEqual(results,None)
 
+        # evaluate clause (rate_limit != None) & clause (byte_counter==1) & clause (now =12) & (elapsed=1) & (speed>rate)
+        ydl.params['ratelimit']=10
+        bytes=19
+        now=12
+        elapsed=1
+        downloader=common.FileDownloader(ydl,ydl.params)
+        start_=time.time()
+        results=downloader.slow_down(start_time,now,bytes)
+        end=time.time()
+        self.assertGreaterEqual(end-start_,max((bytes // 10) - elapsed, 0))
+
+        # evaluate clause (rate_limit != None) & clause (byte_counter==1) & clause (now =none) & (elapsed=-1) & (speed <rate)
+        ydl.params['ratelimit']=10
+        bytes=1
+        now=None
+        elapsed=-1
+        downloader=common.FileDownloader(ydl,ydl.params)
+        results=downloader.slow_down(start_time,now,bytes)
+        self.assertEqual(results,None)
+
+        # evaluate clause (rate_limit = None) & clause (byte_counter==0)
+        ydl.params['ratelimit']=None
+        bytes=0
+        now=None
+        elapsed=-1
+        downloader=common.FileDownloader(ydl,ydl.params)
+        results=downloader.slow_down(start_time,now,bytes)
+        self.assertEqual(results,None)
 
     # Omar
     def test_calc_percent(self):

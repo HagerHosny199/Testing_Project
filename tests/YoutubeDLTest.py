@@ -87,6 +87,7 @@ class TestYoutubeDL(unittest.TestCase):
         results=ydl.process_ie_result(info_dict)
         print("results 4 =",results)
         self.assertNotEqual(results,info_dict)
+        self.assertNotEqual(results['channel_id'],None)
 
         # the 5th branch, result_type == 'playlist'
         info_dict = _make_result(formats)
