@@ -2100,9 +2100,16 @@ class YoutubeIE(YoutubeBaseInfoExtractor):
             video_uploader_url = mobj.group('uploader_url')
         else:
             self._downloader.report_warning('unable to extract uploader nickname')
+        print("in channel id ",video_details)
+        print("video web",video_webpage)
+        print("channel id =",self._html_search_meta(
+                'channelId', video_webpage, 'channel id', default=None))
+        channel_id = (
+            str_or_none(
+                video_details.get('channelId')) or
+            self._html_search_meta(
+                'channelId', video_webpage, 'channel id', default=None))
 
-        channel_id = self._html_search_meta(
-            'channelId', video_webpage, 'channel id')
         channel_url = 'http://www.youtube.com/channel/%s' % channel_id if channel_id else None
 
         # thumbnail image

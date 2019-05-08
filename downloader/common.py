@@ -176,6 +176,7 @@ class FileDownloader(object):
             return
         speed = float(byte_counter) / elapsed
         if speed > rate_limit:
+            #self.sleeping_time=max((byte_counter // rate_limit) - elapsed, 0)
             time.sleep(max((byte_counter // rate_limit) - elapsed, 0))
 
     def temp_name(self, filename):
