@@ -3,7 +3,7 @@ import os
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import utils as ut
-class Test_Methods(unittest.TestCase):
+class UtilsTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(self):
